@@ -8,6 +8,11 @@ from django.http import HttpResponse
 from django.utils import timezone
 import time
 
+from django.views.decorators.csrf import csrf_exempt
+
+from django.http import HttpResponse, JsonResponse
+from django.db import connections
+
 class IsCreatorOrReadOnly(permissions.BasePermission):
     """
     Object-level permission to only allow owners of an object to edit it.
@@ -56,3 +61,17 @@ class TodoViewSet(viewsets.ModelViewSet):
         user = self.request.user
         creator = user if user.is_authenticated else None
         serializer.save(creator=creator)
+
+
+@csrf_exempt
+def liveness_probe(request):
+    return HttpResponse("OK", status=200)
+
+
+@csrf_exempt
+def readiness_probe(request):
+    try:
+        connections['default'].cursor()
+        return HttpResponse("OK", status=200)
+    except Exception:
+        return HttpResponse("Service Unavailable", status=503)
