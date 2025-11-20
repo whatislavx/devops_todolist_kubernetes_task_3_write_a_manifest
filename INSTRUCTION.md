@@ -6,7 +6,7 @@
 
 ## 1. Огляд Маніфестів
 
-Усі необхідні конфігураційні файли розташовані у каталозі `.infrastructure/`: `namespace.yml` (Namespace `todoapp`), `todoapp-pod.yml` (Pod `todoapp-pod`, порт **8080**, health endpoints) та `busybox-curl.yml` (Pod `busyboxplus-curl` для тестування).
+Усі необхідні конфігураційні файли розташовані у каталозі `.infrastructure/`: `namespace.yml` (Namespace `todoapp`), `todoapp-pod.yml` (Pod `todoapp-pод`, порт **8080**, health endpoints) та `busybox.yml` (Pod `busyboxplus-curl` для тестування).
 
 ---
 
@@ -16,7 +16,7 @@
 ```bash
 kubectl apply -f .infrastructure/namespace.yml
 kubectl apply -f .infrastructure/todoapp-pod.yml
-kubectl apply -f .infrastructure/busybox-curl.yml
+kubectl apply -f .infrastructure/busybox.yml
 ```
 ## 3. Перевірка Розгортання
 Переконайтеся, що namespace створено, а поди запущені та знаходяться у стані Running.
@@ -78,7 +78,7 @@ kubectl exec busyboxplus-curl -n todoapp -- nslookup todoapp-pod
 
 Bash
 ```bash
-kubectl delete -f .infrastructure/busybox-curl.yml
-kubectl delete -f .infrastructure/todoapp-pod.yml
+kubectl delete -f .infrastructure/busybox.yml
+kubectl delete -f .infrastructure/todoapp-pод.yml
 kubectl delete -f .infrastructure/namespace.yml
 ```
